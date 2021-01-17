@@ -21,7 +21,9 @@ router.get('/:id', asyncHandler (async (req, res) => {
   if (product) {
     res.json(product); //will convert arr of prodacts into json format
   } else {
-    res.status(404).json({ message: 'Product not found'})
+
+    res.status(404)
+    throw new Error('Product not found')
   }
 }));
 
