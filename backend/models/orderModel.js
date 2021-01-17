@@ -1,6 +1,6 @@
-import mongoos from 'mongoose';
+import mongoose from 'mongoose';
 
-const orderSchema = mongoos.Schema(
+const orderSchema = mongoose.Schema(
   {
     user: {
       type: mongoose.Schema.Types.ObjectId,
@@ -66,10 +66,12 @@ const orderSchema = mongoos.Schema(
     },
     deliveredAt: {
       type: Date,
-    }
+    },
   },
   {
-    timestamps: true,
+    timestamps: {
+      type: Date,
+    },
   }
 );
 

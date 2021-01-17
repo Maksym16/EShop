@@ -1,14 +1,18 @@
-import mongoos from 'mongoose';
+import mongoose from 'mongoose';
 
-const reviewSchema = ({
-  name: { type: String, require: true },
-  rating: { type: Number, require: true },
-  comment: { type: String, require: true }, 
-}, {
-  timestamps: true
-});
+const reviewSchema =
+  ({
+    name: { type: String, require: true },
+    rating: { type: Number, require: true },
+    comment: { type: String, require: true },
+  },
+  {
+    timestamps: {
+      type: Date,
+    },
+  });
 
-const productSchema = mongoos.Schema(
+const productSchema = mongoose.Schema(
   {
     user: {
       type: mongoose.Schema.Types.ObjectId,
@@ -58,7 +62,9 @@ const productSchema = mongoos.Schema(
     },
   },
   {
-    timestamps: true,
+    timestamps: {
+      type: Date,
+    },
   }
 );
 
