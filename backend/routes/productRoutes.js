@@ -9,6 +9,7 @@ import asyncHandler from 'express-async-handler'
 
 router.get('/', asyncHandler (async (req, res) => {
   const products = await Product.find({})
+  throw new Error('hello')
   res.json(products); //will convert arr of prodacts into json format
 }));
 
