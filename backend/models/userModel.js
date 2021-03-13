@@ -4,20 +4,20 @@ import bcrypt from 'bcryptjs'
 const userSchema = mongoose.Schema({
   name: {
     type: String,
-    reqired: true, 
+    required: true, 
   },
   email: {
     type: String,
-    reqired: true, 
+    required: true, 
     unique: true,
   },
   password: {
     type: String,
-    reqired: true, 
+    required: true, 
   },
   isAdmin: {
     type: Boolean,
-    reqired: true, 
+    required: true, 
     default: false,
   }
 }, {
@@ -29,6 +29,15 @@ const userSchema = mongoose.Schema({
 userSchema.methods.matchPassword = async function(pass) {
   return await bcrypt.compare(pass, this.password);
 }
+
+userSchema.pre('save', async function (next){
+  if (!this.isModified('password')) { //check if we update user but not a password
+    next();
+  }
+  const salt = await bcrypt.genSalt(10)
+  this.password = await bcrypt.hash(this.password, salt)
+})
+
 
 
 const User = mongoose.model('User', userSchema)
