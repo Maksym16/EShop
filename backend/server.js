@@ -6,7 +6,7 @@ import { notFound, errorHandler } from './middlewares/errorM.js';
 
 import productRoutes from './routes/productRoutes.js';
 import userRoutes from './routes/userRoutes.js';
-
+import orderRoutes from './routes/orderRoutes.js';
 
 dotenv.config()
 connectDB()
@@ -19,6 +19,8 @@ app.get('/', (req, res) => {
 
 app.use('/api/products/', productRoutes) //mount it, so if anything will go to products will mount to this router
 app.use('/api/users/', userRoutes);
+app.use('/api/orders/', orderRoutes);
+
 app.use(notFound);
 
 app.use(errorHandler)
