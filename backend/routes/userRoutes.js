@@ -1,14 +1,11 @@
 import express from 'express';
 const router = express.Router();
 import {
-  authUser, getUserProfile, registerUser, updateUserProfile
+  authUser, getUserProfile, registerUser, updateUserProfile, getUsers
 } from '../controllers/userControlers.js';
-import { protect } from '../middlewares/authMiddleware.js';
+import { protect, admin } from '../middlewares/authMiddleware.js';
 
-// @desc Fetch all products
-// @route  GET /api/products
-// @access  Public
-router.route('/').post(registerUser);
+router.route('/').post(registerUser).get(protect, admin, getUsers);
 router.post('/login', authUser);
 router.route('/profile').get(protect, getUserProfile).put(protect, updateUserProfile)
 

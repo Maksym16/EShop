@@ -101,4 +101,19 @@ const updateUserProfile = asyncHandler(async (req, res) => {
     throw new Error('User not found')
   }
 });
-export { authUser, getUserProfile, registerUser, updateUserProfile };
+
+// @desc Get all users (admin)
+// @route  GET /api/users
+// @access  Private/admin
+const getUsers = asyncHandler(async (req, res) => {
+  const users = await User.find({}); //after we validate user with that email
+
+  if (users) { //we want to match a password, if thats match we want to retorn user with that token
+    res.json({ users })
+  } else {
+    res.status(404);
+    throw new Error('Users not found')
+  }
+});
+
+export { authUser, getUserProfile, registerUser, updateUserProfile, getUsers };
