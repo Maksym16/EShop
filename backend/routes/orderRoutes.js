@@ -2,7 +2,8 @@ import express from 'express';
 const router = express.Router();
 import {
 addOrderItems,
-getOrderById
+getOrderById,
+updateOrderToPaid
 } from '../controllers/orderController.js';
 import { protect } from '../middlewares/authMiddleware.js';
 
@@ -11,6 +12,8 @@ import { protect } from '../middlewares/authMiddleware.js';
 // @access  Public
 router.route('/').post(protect, addOrderItems);
 router.route('/:id').get(protect, getOrderById)
+router.route('/:id/pay').put(protect, updateOrderToPaid);
+
 
 
 export default router;
