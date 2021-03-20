@@ -6,15 +6,22 @@ import Message from '../components/Message';
 import Loader from '../components/Loader';
 import { listUsers } from '../actions/userActions';
 
-const UsersListScreen = () => {
+const UsersListScreen = ({ history }) => {
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(listUsers());
-  }, [dispatch]);
-  
   const usersList = useSelector((state) => state.usersList);
   const { loading, error, users } = usersList;
+
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
+
+  useEffect(() => {
+    if (userInfo && userInfo.isAdmin) {
+      dispatch(listUsers());
+    } else {
+      history.push('/login')
+    }
+  }, [dispatch, userInfo, history]);
 
   const deleteHandler = (id) => {
     console.log(id);
@@ -37,7 +44,6 @@ const UsersListScreen = () => {
             <th></th>
           </thead>
           <tbody>
-            {console.log(users)}
             {users.users &&
               users.users.length > 0 &&
               users.users.map((user) => (
