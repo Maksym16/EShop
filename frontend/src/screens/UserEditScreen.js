@@ -17,34 +17,35 @@ const UserEditScreen = ({ match, history }) => {
   const dispatch = useDispatch();
   const userDetails = useSelector((state) => state.userDetails);
   const { loading, error, user } = userDetails;
-
+  console.log(userDetails);
   const userEdit = useSelector((state) => state.userEdit);
   const {
     loading: loadingEdit,
     error: errorEdit,
     success: editSuccess,
   } = userEdit;
-
+  console.log(!user.user.name || (user.user._id !== userId));
   useEffect(() => {
     if (editSuccess) {
       dispatch({ type: USER_EDIT_RESET });
       history.push(`/admin/userList`);
     } else {
-      if (!user.user.name || user.user._id !== userId) {
+      // if (!user.user.name || (user.user._id !== userId)) {
         dispatch(getUserDetails(userId));
-      } else {
-        setName(user.user.name);
-        setEmail(user.user.email);
-        setIsAdmin(user.user.isAdmin);
-      }
+      // } else {
+      //   setName(user.user.name);
+      //   setEmail(user.user.email);
+      //   setIsAdmin(user.user.isAdmin);
+      // }
     }
-  }, [user, dispatch, userId]);
+  }, [user, dispatch, editSuccess]);
+
 
   const submitHandler = async (e) => {
     e.preventDefault();
     dispatch(
       editUser({
-        id: user._id,
+        _id: userId,
         name,
         email,
         isAdmin,

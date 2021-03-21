@@ -118,6 +118,7 @@ export const getUserDetails = (id) => async (dispatch, getState) => {
     };
 
     const { data } = await axios.get(`/api/users/${id}`, config);
+    console.log(data)
     dispatch({
       type: USER_DETAILS_SUCCESS,
       payload: data,
@@ -176,7 +177,7 @@ export const listUsers = () => async (dispatch, getState) => {
     };
 
     const { data } = await axios.get('/api/users', config);
-
+    console.log(data)
     dispatch({
       type: USER_LIST_SUCCESS,
       payload: data,
@@ -232,7 +233,7 @@ export const editUser = (user) => async (dispatch, getState) => {
         Authorization: `Bearer ${userInfo.token}`,
       },
     };
-
+    console.log(user)
     const { data } = await axios.put(`/api/users/${user._id}`, user, config);
 
     dispatch({

@@ -24,7 +24,7 @@ const UsersListScreen = ({ history }) => {
     } else {
       history.push('/login')
     }
-  }, [dispatch, userInfo, history, successDelete ]);
+  }, [dispatch, history, successDelete ]);
 
   const deleteHandler = (id) => {
     if (window.confirm('Are you sure?')) {
@@ -49,9 +49,7 @@ const UsersListScreen = ({ history }) => {
             <th></th>
           </thead>
           <tbody>
-            {users.users &&
-              users.users.length > 0 &&
-              users.users.map((user) => (
+            {users.map((user) => (
                 <tr key={user._id}>
                   <td>{user._id}</td>
                   <td>{user.name}</td>
