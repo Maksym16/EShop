@@ -116,4 +116,19 @@ const getUsers = asyncHandler(async (req, res) => {
   }
 });
 
-export { authUser, getUserProfile, registerUser, updateUserProfile, getUsers };
+// @desc Delete user (admin)
+// @route  DELETE /api/users/:id
+// @access  Private/admin
+const deleteUser = asyncHandler(async (req, res) => {
+  const user = await User.findById(req.params.id); //after we validate user with that email
+
+  if (user) { //we want to match a password, if thats match we want to retorn user with that token
+    await user.remove()
+    res.json({ message: 'User removed'})
+  } else {
+    res.status(404);
+    throw new Error('User not found')
+  }
+});
+
+export { authUser, getUserProfile, registerUser, updateUserProfile, getUsers, deleteUser };
