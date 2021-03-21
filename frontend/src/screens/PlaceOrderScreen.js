@@ -21,7 +21,6 @@ const PlaceOrderScreen = ({ history }) => {
   cart.totalPrice = addDecemals(Number(cart.itemPrice) + Number(cart.shippingPrice) + Number(cart.taxPrice));
  
   const orderCreate = useSelector(state => state.orderCreate);
-  console.log(orderCreate)
   const { order, success, error} = orderCreate;
   useEffect(() => {
     if (success) {
