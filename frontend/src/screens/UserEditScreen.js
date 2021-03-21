@@ -13,32 +13,34 @@ const UserEditScreen = ({ match, history }) => {
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
   const [isAdmin, setIsAdmin] = useState(false);
+  const [isMounted, setIsMounted] = useState(false)
 
   const dispatch = useDispatch();
   const userDetails = useSelector((state) => state.userDetails);
   const { loading, error, user } = userDetails;
-  console.log(userDetails);
+
   const userEdit = useSelector((state) => state.userEdit);
   const {
     loading: loadingEdit,
     error: errorEdit,
     success: editSuccess,
   } = userEdit;
-  console.log(!user.user.name || (user.user._id !== userId));
+  
   useEffect(() => {
     if (editSuccess) {
       dispatch({ type: USER_EDIT_RESET });
       history.push(`/admin/userList`);
     } else {
-      // if (!user.user.name || (user.user._id !== userId)) {
+      if (!isMounted) {
         dispatch(getUserDetails(userId));
-      // } else {
-      //   setName(user.user.name);
-      //   setEmail(user.user.email);
-      //   setIsAdmin(user.user.isAdmin);
-      // }
+        setIsMounted(true)
+      } else {
+        setName(user.user.name);
+        setEmail(user.user.email);
+        setIsAdmin(user.user.isAdmin);
+      }
     }
-  }, [user, dispatch, editSuccess]);
+  }, [user && user.user, dispatch, editSuccess]);
 
 
   const submitHandler = async (e) => {

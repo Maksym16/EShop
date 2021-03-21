@@ -32,7 +32,6 @@ const registerUser = asyncHandler(async (req, res) => {
   const { name, email, password} = req.body;
  
   const userExists = await User.findOne({ email }); //after we validate user with that email
-  console.log(userExists);
   if (userExists) {
     res.status(400)
     throw new Error('User already axists');
@@ -130,7 +129,6 @@ const deleteUser = asyncHandler(async (req, res) => {
 // @access  Private/admin
 const getUserById = asyncHandler(async (req, res) => {
   const user = await User.findById(req.params.id).select('-password'); //after we validate user with that email
-
   if (user) { //we want to match a password, if thats match we want to retorn user with that token
     res.json({user})
   } else {
