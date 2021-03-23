@@ -22,8 +22,9 @@ const UsersListScreen = ({ history }) => {
     if (userInfo && userInfo.isAdmin) {
       dispatch(listUsers());
     } else {
-      history.push('/login')
+      history.push('/login');
     }
+    // eslint-disable-next-line
   }, [dispatch, history, successDelete ]);
 
   const deleteHandler = (id) => {
