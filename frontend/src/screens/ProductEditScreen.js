@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { Form, Button } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
@@ -19,8 +20,7 @@ const ProductEditScreen = ({ match, history }) => {
   const [category, setCategory] = useState('');
   const [countInStock, setCountInStock] = useState(0);
   const [description, setDescription] = useState('');
-
-
+  const [uploading, setUploading] = useState(false);
 
   const dispatch = useDispatch();
   const productDetails = useSelector((state) => state.productDetails);
@@ -28,13 +28,6 @@ const ProductEditScreen = ({ match, history }) => {
 
   const productUpdate = useSelector((state) => state.productUpdate);
   const { loading: loadingUpdate, error: errorUpdate, success: successUpdate } = productUpdate;
-
-  // const userEdit = useSelector((state) => state.userEdit);
-  // const {
-  //   loading: loadingEdit,
-  //   error: errorEdit,
-  //   success: editSuccess,
-  // } = userEdit;
 
   useEffect(() => {
     if (successUpdate) {
@@ -55,6 +48,33 @@ const ProductEditScreen = ({ match, history }) => {
       }
     }
   }, [productId, product, dispatch, history, successUpdate]);
+
+  const uploadFileHandler = async (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      console.log(file);
+      const formData = new FormData();
+      console.log(formData);
+      formData.append('image', file);
+      setUploading(true);
+
+      try {
+        const config = {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        };
+        console.log(formData);
+        const { data } = await axios.post('/api/upload', formData, config);
+        console.log(data);
+        setImage(data);
+        setUploading(false);
+      } catch (error) {
+        console.error(error);
+        setUploading(false);
+      }
+    }
+  }
 
   const submitHandler = async (e) => {
     e.preventDefault();
@@ -114,6 +134,8 @@ const ProductEditScreen = ({ match, history }) => {
                 value={image}
                 onChange={(e) => setPrice(e.target.value)}
               ></Form.Control>
+              <Form.File id='image-file' label='Choose File' custom onChange={uploadFileHandler}></Form.File>
+              {uploading && <Loader />}
             </Form.Group>
 
             <Form.Group controlId="brand">

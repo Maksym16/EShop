@@ -90,7 +90,6 @@ const ProductListScreen = ({ history, match }) => {
           <tbody>
             {products.map((product) => (
               <tr key={product._id}>
-                {console.log(product)}
                 <td>{product._id}</td>
                 <td>{product.name}</td>
                 <td>${product.price}</td>
