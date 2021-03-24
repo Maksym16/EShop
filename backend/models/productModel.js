@@ -5,6 +5,11 @@ const reviewSchema =
     name: { type: String, require: true },
     rating: { type: Number, require: true },
     comment: { type: String, require: true },
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      required: true,
+      ref: 'User', //it will create relationship between user and product
+    },
   },
   {
     timestamps: {
@@ -33,7 +38,7 @@ const productSchema = mongoose.Schema(
     },
     category: {
       type: String,
-      required: true,
+      // required: true,
     },
     description: {
       type: String,
