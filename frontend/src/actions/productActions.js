@@ -139,6 +139,7 @@ export const updateProduct = ( product ) => async (dispatch, getState) => {
 };
 
 export const createProductReview = (productId, review) => async (dispatch, getState) => {
+  console.log(productId);
   try {
     dispatch({ type: PRODUCT_CREATE_REVIEW_REQUEST });
     const {

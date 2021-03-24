@@ -74,5 +74,5 @@ const productSchema = mongoose.Schema(
 );
 
 const Product = mongoose.model('Product', productSchema);
-
+// const Review = mongoose.model('Review', reviewSchema);
 export default Product;

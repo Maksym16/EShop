@@ -9,7 +9,7 @@ import {
   createProductReview
 } from '../controllers/productsControlers.js';
 import { protect, admin } from '../middlewares/authMiddleware.js';
-
+console.log(createProductReview)
 router.route('/').get(getProgucts).post(protect, admin, createProduct);
 router
   .route('/:id')

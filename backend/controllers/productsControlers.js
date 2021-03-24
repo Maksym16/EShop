@@ -87,28 +87,34 @@ const updateProduct = asyncHandler(async (req, res) => {
 // @access  Private
 const createProductReview = asyncHandler(async (req, res) => {
   const { rating, comment } = req.body;
-  console.log(req.body)
   const product = await Product.findById(req.params.id);
-  console.log(product)
-  if (product) {
-    const alreadyReviewed = product.reviews.find(r => r.user.toString() === req.user._id.toString());
+  if (product && rating && comment) {
+    const alreadyReviewed = product.reviews.find(r => {
+      console.log('rrrr>>>', r.user)
+      console.log('req>>>', req.user);
+
+
+      r.user.toString() === req.user._id.toString()
+    });
 
     if (alreadyReviewed) {
       res.status(400)
       throw new Error('Product already reviewed')
     }
-    console.log(rating)
+   
     const review = {
       name: req.user.name,
-      rating: parseInt(rating, 10),
+      rating: Number(rating),
       comment,
       user: req.user._id,
     }
-    console.log(review)
-    product.reviews.push(review)
+   
+    product.reviews.push(review);
+    console.log(product);
     product.numReviews = product.reviews.length
-    product.rating = product.reviews.reduce((acc, item) => item.rating + acc, 0) / product.reviews.length
-
+    product.rating = product.reviews.reduce((acc, item) =>{
+        item.rating + acc, 0;
+     });
     await product.save()
     res.status(201).json({ message: 'Review added' })
   } else {

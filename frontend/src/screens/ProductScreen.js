@@ -51,13 +51,15 @@ const ProductScreen = ({ history, match }) => {
   const addToCartHandler = () => {
     history.push(`/cart/${match.params.id}?qty=${qty}`);
   };
-
+ 
   const submitHandler = (e) => {
     e.preventDefault();
-    dispatch(createProductReview(match.params.id, {
-      rating,
-      comment
-    }))
+    dispatch(
+      createProductReview(match.params.id, {
+        rating,
+        comment,
+      })
+    );
   };
 
   return (
@@ -155,10 +157,10 @@ const ProductScreen = ({ history, match }) => {
               <ListGroup variant="flush">
                 {product.reviews.map((review) => (
                   <ListGroup.Item key={review._id}>
-                    <strong>{review.name}</strong>
-                    <Rating value={review.rating} />
-                    <p>{review.createdAt.substring(0, 10)}</p>
-                    <p>{review.comment}</p>
+                    {/* <strong>{review.name}</strong> */}
+                    {/* <Rating value={review.rating} /> */}
+                    {/* <p>{review.createdAt.substring(0, 10)}</p> */}
+                    {/* <p>{review.comment}</p> */}
                   </ListGroup.Item>
                 ))}
                 <ListGroup.Item>
