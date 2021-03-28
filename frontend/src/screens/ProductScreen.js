@@ -55,8 +55,9 @@ const ProductScreen = ({ history, match }) => {
   const submitHandler = (e) => {
     e.preventDefault();
     dispatch(
-      createProductReview(match.params.id, {
-        rating,
+      createProductReview(
+        match.params.id, {
+        rating: rating,
         comment,
       })
     );
@@ -157,10 +158,11 @@ const ProductScreen = ({ history, match }) => {
               <ListGroup variant="flush">
                 {product.reviews.map((review) => (
                   <ListGroup.Item key={review._id}>
-                    {/* <strong>{review.name}</strong> */}
-                    {/* <Rating value={review.rating} /> */}
-                    {/* <p>{review.createdAt.substring(0, 10)}</p> */}
-                    {/* <p>{review.comment}</p> */}
+                  {console.log(product)}
+                    <strong>{review.name}</strong> 
+                    <Rating value={review.rating} numViews={product.numReviews} /> 
+                    <p>{review.createdAt.substring(0, 10)}</p> 
+                    <p>{review.comment}</p> 
                   </ListGroup.Item>
                 ))}
                 <ListGroup.Item>

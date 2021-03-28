@@ -9,12 +9,13 @@ import {
   createProductReview
 } from '../controllers/productsControlers.js';
 import { protect, admin } from '../middlewares/authMiddleware.js';
-console.log(createProductReview)
+
 router.route('/').get(getProgucts).post(protect, admin, createProduct);
+router.route('/:id/reviews').post(protect, createProductReview)
 router
   .route('/:id')
   .get(getProductById)
   .delete(protect, admin, deleteProduct)
   .put(protect, admin, updateProduct);
-router.route('/:id/reviews').post(protect, createProductReview)
+
 export default router;
