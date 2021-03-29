@@ -13,7 +13,7 @@ const SearchBox = ({ history }) => {
     }
   }
   return (
-    <Form onSubmit={submitHandler}>
+    <Form onSubmit={submitHandler} className="align-items-center" inline>
       <Form.Control
         type="text"
         name="q"
